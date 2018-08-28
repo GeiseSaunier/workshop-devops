@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+  django:
+    image: pablodiegoss/workshop:latest
+    build: .
+    ports:
+      - 80:8000
