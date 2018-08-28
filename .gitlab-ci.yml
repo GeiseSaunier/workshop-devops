@@ -5,7 +5,7 @@ stages:
 
 
 flake8:
-  image: pablodiegoss/workshop:latest
+  image: ejplatform/python:alpine
   stage: syntax
   script:
     - flake8
