@@ -18,6 +18,6 @@ services:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.affinity: ${rancher_host}
       rap.le_email: dev@${hostname}
-      rap.le_test: 'false'
+      rap.le_test: 'true'
       rap.le_host: ${hostname}
       rap.host: ${hostname}

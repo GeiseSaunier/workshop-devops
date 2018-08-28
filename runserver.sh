@@ -3,5 +3,5 @@
 
 python3 manage.py migrate
 
-echo "Server running on localhost"
-python3 manage.py runserver 0.0.0.0:8000
+echo "Server running"
+gunicorn lappis.wsgi -b 0.0.0.0:80
