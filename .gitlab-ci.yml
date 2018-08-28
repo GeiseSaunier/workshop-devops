@@ -31,4 +31,5 @@ deploy to rancher:
             --environment $RANCHER_ENVIRONMENT
             --stack $RANCHER_STACK
             --rancher-key $RANCHER_ACCESS_KEY
-            --rancher-secret $RANCHER_SECRET_KEY"
+            --rancher-secret $RANCHER_SECRET_KEY
+            --rancher-url $RANCHER_URL"
