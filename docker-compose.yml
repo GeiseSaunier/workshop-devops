@@ -6,3 +6,5 @@ services:
     build: .
     ports:
       - 80:8000
+    volumes:
+      - ./lappis/:/app/
