@@ -1,0 +1,43 @@
+version: '2'
+
+catalog:
+  name: Workshop-DevOps
+  description: |
+    Workshop Stack default example
+  version: 0.1-rancher0
+  minimum_rancher_version: v1.0.0
+  maintainer: "Example Person Name <example@example.com>"
+  uuid: workshop
+  questions:
+    - variable: hostname
+      label: Hostname
+      description: "Hostname of the website (e.g.: domain.org)"
+      default: workshop.dev.lappis.rocks
+      required: true
+      type: string
+    - variable: debug
+      label: Enable debug settings?
+      description: "WARNING: only enable debug mode in staging environments."
+      default: false
+      required: true
+      type: boolean
+    - variable: rancher_host
+      description: "Sets the Rancher Host Affinity"
+      label: "Rancher Host"
+      required: true
+      type: string
+    - variable: volume_driver
+      description: "Choose the Volume Driver being used.(Option: local or rancher-nfs)"
+      label: "Volume Driver"
+      required: true
+      default: local
+      type: "enum"
+      options:
+        - local
+        - rancher-nfs
+
+services:
+  django:
+    retain_ip: true
+    scale: 1
+    start_on_create: true

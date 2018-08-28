@@ -1,0 +1,23 @@
+version: '2'
+
+volumes:
+  sqlite:
+    driver: ${volume_driver}
+
+services:
+  django:
+    image: pablodiegoss/workshop:latest
+    environment:
+      DJANGO_ALLOWED_HOSTS: ${hostname}
+      DJANGO_DEBUG: 'true'
+      HOSTNAME: ${hostname}
+      DEBUG: ${debug}
+    volumes:
+      - sqlite:/app/db/
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity: ${rancher_host}
+      rap.le_email: dev@${hostname}
+      rap.le_test: 'false'
+      rap.le_host: ${hostname}
+      rap.host: ${hostname}

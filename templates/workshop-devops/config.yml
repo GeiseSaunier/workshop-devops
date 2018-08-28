@@ -1,0 +1,7 @@
+name: Workshop
+description: |
+  Example Stack to be used in a workshop about DevOps with rancher & docker. 
+version: 0.1-rancher0
+category: Applications
+projectURl: "https://github.com/lappis-unb/workshop-devops"
+license: AGPL v3
