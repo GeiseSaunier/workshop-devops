@@ -1,12 +1,12 @@
 stages:
-  - syntax
+  - test
   - publish
   - deploy
 
 
 flake8:
   image: ejplatform/python:alpine
-  stage: syntax
+  stage: test
   script:
     - flake8
 
@@ -17,9 +17,9 @@ build docker:
   services:
     - docker:dind
   script:
-    - docker build . -t pablodiegoss/workshop:latest
+    - docker build . -t lappisworkshop/devops:latest
     - docker login -u $DOCKER_USER -p $DOCKER_PASS
-    - docker push pablodiegoss/workshop:latest
+    - docker push lappisworkshop/devops:latest
 
 
 deploy to rancher:
