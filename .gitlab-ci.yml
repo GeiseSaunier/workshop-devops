@@ -3,30 +3,33 @@ stages:
   - publish
   - deploy
 
+
 flake8:
-  stage: test
   image: ejplatform/python:alpine
-  scripts:
+  stage: test
+  script:
     - flake8
 
-push docker:
+
+build docker:
+  image : docker
   stage: publish
-  image: docker
   services:
     - docker:dind
   script:
     - docker build . -t lappisworkshop/devops:latest
-    - docker login -u $DOCKER_LOGIN -p $DOCKER_PASS
+    - docker login -u $DOCKER_USER -p $DOCKER_PASS
     - docker push lappisworkshop/devops:latest
 
+
 deploy to rancher:
-  stage: deploy
   image: cdrx/rancher-gitlab-deploy
+  stage: deploy
   script:
-    - "upgrade 
-        --service django
-        --stack $RANCHER_STACK
-        --rancher-url $RANCHER_URL
-        --rancher-key $RANCHER_ACCESS_KEY
-        --rancher-secret $RANCHER_SECRET_KEY
-        --environment $RANCHER_ENVIRONMENT"
+    - "upgrade
+            --service django
+            --environment $RANCHER_ENVIRONMENT
+            --stack $RANCHER_STACK
+            --rancher-key $RANCHER_ACCESS_KEY
+            --rancher-secret $RANCHER_SECRET_KEY
+            --rancher-url $RANCHER_URL"
