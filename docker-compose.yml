@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  django:
+    image: lappisworkshop/devops:latest
+    build: .
+    ports:
+      - 80:80
+    volumes:
+      - ./lappis/:/app/
+    
