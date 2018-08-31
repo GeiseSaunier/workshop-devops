@@ -2,9 +2,9 @@ version: '2'
 
 services:
   django:
-    image: pablodiegoss/workshop:latest
+    image: lappisworkshop/devops:latest
     build: .
     ports:
-      - 80:8000
+      - 80:80
     volumes:
       - ./lappis/:/app/
