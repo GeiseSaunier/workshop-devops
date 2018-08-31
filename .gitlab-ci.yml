@@ -23,11 +23,10 @@ deploy to rancher:
   stage: deploy
   image: cdrx/rancher-gitlab-deploy
   script:
-    -"upgrade 
+    - "upgrade 
         --service django
         --stack $RANCHER_STACK
         --rancher-url $RANCHER_URL
         --rancher-key $RANCHER_ACCESS_KEY
         --rancher-secret $RANCHER_SECRET_KEY
-        --environment $RANCHER_ENVIRONMENT
-    "
+        --environment $RANCHER_ENVIRONMENT"
