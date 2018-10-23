@@ -10,7 +10,6 @@ flake8:
   script:
     - flake8
 
-
 build docker:
   image : docker
   stage: publish
@@ -33,3 +32,12 @@ deploy to rancher:
             --rancher-key $RANCHER_ACCESS_KEY
             --rancher-secret $RANCHER_SECRET_KEY
             --rancher-url $RANCHER_URL"
+
+
+deploy digital ocean:
+  stage: deploy
+  before_script:
+    - apt-get update -y && apt-get install sshpass -y
+  script:
+    - ./digitaloceanssh.sh $DIGITAL_OCEAN_PASSWORD $DIGITAL_OCEAN_IP
+
