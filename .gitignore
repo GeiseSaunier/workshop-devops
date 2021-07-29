@@ -73,3 +73,5 @@ docker/base-images/nginx.conf
 
 # virtualenv
 venv
+
+.env

@@ -1,11 +1,12 @@
-FROM python:3.6.5
+FROM python:3.8.0-slim
 
-WORKDIR /app
+WORKDIR /src
 
-COPY lappis/ /app/
+COPY src/ /src/
 COPY requirements.txt /
-COPY entrypoint.sh /
+COPY run.sh /
 
+RUN pip install --upgrade pip
 RUN pip install -r /requirements.txt
 
-ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/run.sh"]
