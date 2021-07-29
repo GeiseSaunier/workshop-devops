@@ -2,10 +2,11 @@ version: '2'
 
 services:
   django:
-    image: lappisworkshop/devops:latest
+    image: teste:latest
     build: .
     ports:
       - 80:80
     volumes:
-      - ./lappis/:/app/
+      - ./src/:/src/
+    env_file: .env
     
