@@ -1,14 +1,30 @@
 stages:
+  - stylesheet
   - test
   - publish
   - deploy
 
+variables:
+  TEMP_IMAGE_NAME: $CI_REGISTRY_IMAGE/ci:$CI_COMMIT_SHORT_SHA
 
-flake8:
-  image: ejplatform/python:alpine
-  stage: test
+#### Style Check Tests ####
+.run stylecheck:
+  image: python:3.8-buster
+  stage: stylesheet
+  before_script:
+    - cd src/
+
+run black check:
+  extends: .run stylecheck
   script:
-    - flake8
+    - pip install black==21.4b1
+    - black --check .
+
+run isort check:
+  extends: .run stylecheck
+  script:
+    - pip install isort==5.8.*
+    - isort --check-only --skip migrations  --profile black .
 
 build docker:
   image : docker
@@ -16,28 +32,8 @@ build docker:
   services:
     - docker:dind
   script:
-    - docker build . -t lappisworkshop/devops:latest
-    - docker login -u $DOCKER_USER -p $DOCKER_PASS
-    - docker push lappisworkshop/devops:latest
+    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+    - docker build -t $TEMP_IMAGE_NAME .
+    - docker push $TEMP_IMAGE_NAME
 
-
-deploy to rancher:
-  image: cdrx/rancher-gitlab-deploy
-  stage: deploy
-  script:
-    - "upgrade
-            --service django
-            --environment $RANCHER_ENVIRONMENT
-            --stack $RANCHER_STACK
-            --rancher-key $RANCHER_ACCESS_KEY
-            --rancher-secret $RANCHER_SECRET_KEY
-            --rancher-url $RANCHER_URL"
-
-
-deploy digital ocean:
-  stage: deploy
-  before_script:
-    - apt-get update -y && apt-get install sshpass -y
-  script:
-    - ./digitaloceanssh.sh $DIGITAL_OCEAN_PASSWORD $DIGITAL_OCEAN_IP
 
