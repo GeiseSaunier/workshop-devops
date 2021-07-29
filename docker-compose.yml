@@ -9,4 +9,16 @@ services:
     volumes:
       - ./src/:/src/
     env_file: .env
-    
+    depends_on: 
+      - db
+
+  db:
+    image: postgres:12.5
+    restart: unless-stopped
+    volumes:
+      - db_postgres_data:/var/lib/postgresql/data
+    env_file: .env
+
+
+volumes:
+  db_postgres_data:
